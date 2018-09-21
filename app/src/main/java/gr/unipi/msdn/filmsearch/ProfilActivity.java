@@ -1,14 +1,18 @@
 package gr.unipi.msdn.filmsearch;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,12 +31,12 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import android.support.v4.app.Fragment;
 
 import java.io.IOException;
 import java.net.URI;
 
 public class ProfilActivity extends AppCompatActivity implements View.OnClickListener{
-
 
     private static final int CHOOSE_IMAGE = 101;
     ImageView photoImage;

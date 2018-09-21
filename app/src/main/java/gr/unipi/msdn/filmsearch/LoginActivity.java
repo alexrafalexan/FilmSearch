@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 if (task.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "You are Loged in", Toast.LENGTH_SHORT).show();
-                    Intent iMain = new Intent(LoginActivity.this, ProfilActivity.class);
+                    Intent iMain = new Intent(LoginActivity.this, MainActivity.class);
                     getIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(iMain);
                 } else {
