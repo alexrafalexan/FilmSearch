@@ -22,9 +22,10 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.ActionBar" />
         <activity android:name=".ProfilActivity" />
-        <activity android:name=".ApiExampleActivity" />
+        <activity android:name=".DisplayMovie"
+            android:theme="@style/AppTheme.ActionBar" />
     </application>
 
 </manifest>

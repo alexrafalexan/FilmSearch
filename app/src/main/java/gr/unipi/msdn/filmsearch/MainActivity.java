@@ -2,32 +2,15 @@ package gr.unipi.msdn.filmsearch;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.SearchView;
 
-import com.bumptech.glide.load.model.FileLoader;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         topMoviesList = new ArrayList<>();
         listView = findViewById(R.id.toplistmovies);
+        getMovies();
     }
 
     @Override
@@ -61,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
             Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(loginActivity);
-        } else {
-            getMovies();
         }
     }
 
@@ -122,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
                                 bundle.putString("ADULT", adult);
                                 bundle.putString("OVERVIEW", overview);
                                 bundle.putString("RELEASEDATE", releaseDate);
-                                Intent newsDisplayActivity = new Intent(MainActivity.this, DisplayMovie.class);
-                                newsDisplayActivity.putExtras(bundle);
-                                startActivity(newsDisplayActivity);
+                                Intent displayMovie = new Intent(MainActivity.this, DisplayMovie.class);
+                                displayMovie.putExtras(bundle);
+                                startActivity(displayMovie);
                             }
                         });
                     }
