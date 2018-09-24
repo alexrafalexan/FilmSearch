@@ -80,7 +80,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/btsignup"
+        android:id="@+id/btlogin"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginBottom="30dp"
