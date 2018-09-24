@@ -42,7 +42,7 @@ import android.support.v4.app.Fragment;
 import java.io.IOException;
 import java.net.URI;
 
-public class ProfilActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
+public class ProfilActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final int CHOOSE_IMAGE = 101;
     ImageView photoImage;
@@ -70,28 +70,21 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
 
         findViewById(R.id.photo).setOnClickListener(this);
         findViewById(R.id.btsave).setOnClickListener(this);
-        
+
         // Load user profile info
         loadUserInfo();
-        
-    }
-
-    private void loadUserInfo() {
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        if(user.getPhotoUrl() != null){
-            Glide.with(this)
-                    .load(user.getPhotoUrl().toString())
-                    .into(photoImage);
-        }
-        if(user.getDisplayName() != null){
-            editText.setText(user.getDisplayName());
-        }
-
-
-
 
     }
+
+    protected void onStart() {
+        super.onStart();
+        if (mAuth.getCurrentUser() == null) {
+            finish();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -109,33 +102,6 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void saveUserInformation() {
-        String displayName = editText.getText().toString();
-
-        if (displayName.isEmpty()) {
-            editText.setError("Display Name is required");
-            editText.requestFocus();
-            Log.i("ERROR", "EMAIL DISPLAY");
-            return;
-        }
-
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        if(user!=null && profileImageUrl !=null){
-            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().setDisplayName(displayName).setPhotoUri(Uri.parse(profileImageUrl)).build();
-
-            user.updateProfile(profile)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(ProfilActivity.this,"Profile Update", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -152,6 +118,19 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void loadUserInfo() {
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if(user.getPhotoUrl() != null){
+            Glide.with(this)
+                    .load(user.getPhotoUrl().toString())
+                    .into(photoImage);
+        }
+        if(user.getDisplayName() != null){
+            editText.setText(user.getDisplayName());
         }
     }
 
@@ -182,6 +161,34 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    private void saveUserInformation() {
+        String displayName = editText.getText().toString();
+
+        if (displayName.isEmpty()) {
+            editText.setError("Display Name is required");
+            editText.requestFocus();
+            Log.i("ERROR", "EMAIL DISPLAY");
+            return;
+        }
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if(user!=null && profileImageUrl !=null){
+            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().setDisplayName(displayName).setPhotoUri(Uri.parse(profileImageUrl)).build();
+
+            user.updateProfile(profile)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(ProfilActivity.this,"Profile Update", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+        }
+    }
+
     private void showImageChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -190,42 +197,7 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    protected void onStart() {
-        super.onStart();
-        if (mAuth.getCurrentUser() == null) {
-            finish();
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-        }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        if (id == R.id.nav_first_layout) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new FirstFragment()).commit();
-        } else if (id == R.id.nav_second_layout) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new SecondFragment()).commit();
-        } else if (id == R.id.nav_third_layout) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_signout) {
-            signout();
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-
-    public void signout() {
+    public void signOut() {
         FirebaseAuth.getInstance().signOut();
         finish();
         Intent logoutIntentDropDown = new Intent(getApplicationContext(),LoginActivity.class);
