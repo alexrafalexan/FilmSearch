@@ -2,7 +2,6 @@ package gr.unipi.msdn.filmsearch;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,29 +30,29 @@ public class ApiExampleActivity extends AppCompatActivity{
                 .build();
 
         Api api = retrofit.create(Api.class);
-        Call<List<Hero>> call = api.getHeroes();
+        Call<List<MoviesDataModel>> call = api.getMovies();
 
-        call.enqueue(new Callback<List<Hero>>() {
+        call.enqueue(new Callback<List<MoviesDataModel>>() {
             @Override
-            public void onResponse(Call<List<Hero>> call, Response<List<Hero>> response) {
-                List<Hero> heroes = response.body();
+            public void onResponse(Call<List<MoviesDataModel>> call, Response<List<MoviesDataModel>> response) {
+                List<MoviesDataModel> moviesDataModels = response.body();
 
-                String[] heroNames = new String[heroes.size()];
+                String[] heroNames = new String[moviesDataModels.size()];
 
-                for(int i=0; i <heroes.size();i++){
-                    heroNames[i] = heroes.get(i).getName();
+                for(int i = 0; i < moviesDataModels.size(); i++){
+                    heroNames[i] = moviesDataModels.get(i).getName();
                 }
 
                 listView.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, heroNames ));
 
-//                for(Hero h:heroes){
+//                for(MoviesDataModel h:moviesDataModels){
 //                    Log.d("name", h.getName());
 //                }
 
             }
 
             @Override
-            public void onFailure(Call<List<Hero>> call, Throwable t) {
+            public void onFailure(Call<List<MoviesDataModel>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
