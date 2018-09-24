@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class DisplayMovie extends AppCompatActivity {
         mvoteAverage.setText(getValueBundle().get(3).toString());
         moverview = findViewById(R.id.overview);
         moverview.setText(getValueBundle().get(4).toString());
+        moverview.setMovementMethod(new ScrollingMovementMethod());
         // Display INFO at Logcat //
         for (int i = 0; i <=4; i++){
             Log.i(TAG, "Display Movie INFO " + getValueBundle().get(i).toString());
