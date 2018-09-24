@@ -2,7 +2,6 @@ package gr.unipi.msdn.filmsearch;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,12 +32,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        imageLogin = (ImageView) findViewById(R.id.btlogin);
+        imageLogin = (ImageView) findViewById(R.id.btsignup);
         register = (TextView) findViewById(R.id.textviewregister);
         emailText = (EditText) findViewById(R.id.email);
         passwordText = (EditText) findViewById(R.id.password);
         progressBar = (ProgressBar) findViewById(R.id.progresslogin);
-        findViewById(R.id.btlogin).setOnClickListener(this);
+        findViewById(R.id.btsignup).setOnClickListener(this);
         findViewById(R.id.textviewregister).setOnClickListener(this);
         progressBar.setVisibility(View.GONE);
     }
@@ -60,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
 
-            case R.id.btlogin:
+            case R.id.btsignup:
                 Log.i("Content", "Press Login");
                 userLogin();
                 break;

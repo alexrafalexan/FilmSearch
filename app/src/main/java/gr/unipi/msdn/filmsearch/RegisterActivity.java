@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressBar =(ProgressBar) findViewById(R.id.progressregister);
         alreadyRegister = (TextView) findViewById(R.id.alreadregister);
         progressBar.setVisibility(View.GONE);
-        findViewById(R.id.btlogin).setOnClickListener(this);
+        findViewById(R.id.btsignup).setOnClickListener(this);
         findViewById(R.id.alreadregister).setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
 

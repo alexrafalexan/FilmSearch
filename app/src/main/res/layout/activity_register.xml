@@ -73,14 +73,14 @@
         android:hint="repeat password"
         android:inputType="textPassword"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/btlogin"
+        app:layout_constraintBottom_toTopOf="@+id/btsignup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/btlogin"
+        android:id="@+id/btsignup"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginBottom="30dp"
@@ -106,10 +106,10 @@
         android:text="Register"
         android:textColor="@color/colorWhite"
         android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btlogin"
-        app:layout_constraintEnd_toEndOf="@+id/btlogin"
-        app:layout_constraintStart_toStartOf="@+id/btlogin"
-        app:layout_constraintTop_toTopOf="@+id/btlogin" />
+        app:layout_constraintBottom_toBottomOf="@+id/btsignup"
+        app:layout_constraintEnd_toEndOf="@+id/btsignup"
+        app:layout_constraintStart_toStartOf="@+id/btsignup"
+        app:layout_constraintTop_toTopOf="@+id/btsignup" />
 
     <ProgressBar
         android:id="@+id/progressregister"
