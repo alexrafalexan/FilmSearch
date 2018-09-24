@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 getIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(iRegister);
                 Log.i("Content", "Press Register");
+                finish();
                 break;
 
             case R.id.btlogin:
@@ -102,6 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 progressBar.setVisibility(View.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 if (task.isSuccessful()) {
+                    finish();
                     Toast.makeText(LoginActivity.this, "You are Loged in", Toast.LENGTH_SHORT).show();
                     Intent iMain = new Intent(LoginActivity.this, MainActivity.class);
                     getIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -111,5 +113,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
+    }
+
+    protected void onStart() {
+        super.onStart();
+        if (mAuth.getCurrentUser() != null) {
+            finish();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
     }
 }

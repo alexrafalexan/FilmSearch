@@ -16,7 +16,11 @@ public class FirstFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.activity_api_example, container, false);
+//        myView = inflater.inflate(R.layout.activity_profil, container, false);
+
+        Intent intent = new Intent(getActivity(), ProfilActivity.class);
+        startActivity(intent);
+
         return myView;
     }
 }

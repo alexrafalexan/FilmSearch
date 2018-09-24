@@ -94,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     progressBar.setVisibility(View.GONE);
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     if (task.isSuccessful()) {
+                        finish();
                         Toast.makeText(getApplicationContext(), "User Registered Successfull", Toast.LENGTH_SHORT).show();
                         Intent iLogin = new Intent(RegisterActivity.this, LoginActivity.class);
                         getIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -115,11 +116,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btlogin){
+        if(v.getId() == R.id.btsignup){
             Log.i("Content","Press Register");
             registerUser();
             return;
         }else {
+            finish();
             Intent iLogin = new Intent(RegisterActivity.this,LoginActivity.class);
             startActivity(iLogin);
         }

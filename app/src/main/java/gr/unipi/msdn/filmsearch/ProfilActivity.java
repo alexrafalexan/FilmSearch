@@ -7,10 +7,15 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -21,6 +26,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,7 +42,7 @@ import android.support.v4.app.Fragment;
 import java.io.IOException;
 import java.net.URI;
 
-public class ProfilActivity extends AppCompatActivity implements View.OnClickListener{
+public class ProfilActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
 
     private static final int CHOOSE_IMAGE = 101;
     ImageView photoImage;
@@ -64,6 +70,27 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
 
         findViewById(R.id.photo).setOnClickListener(this);
         findViewById(R.id.btsave).setOnClickListener(this);
+        
+        // Load user profile info
+        loadUserInfo();
+        
+    }
+
+    private void loadUserInfo() {
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if(user.getPhotoUrl() != null){
+            Glide.with(this)
+                    .load(user.getPhotoUrl().toString())
+                    .into(photoImage);
+        }
+        if(user.getDisplayName() != null){
+            editText.setText(user.getDisplayName());
+        }
+
+
+
+
     }
 
     @Override
@@ -162,4 +189,46 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         startActivityForResult(Intent.createChooser(intent, "Select Profil Image"), CHOOSE_IMAGE);
     }
 
+
+    protected void onStart() {
+        super.onStart();
+        if (mAuth.getCurrentUser() == null) {
+            finish();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        if (id == R.id.nav_first_layout) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new FirstFragment()).commit();
+        } else if (id == R.id.nav_second_layout) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new SecondFragment()).commit();
+        } else if (id == R.id.nav_third_layout) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_signout) {
+            signout();
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    public void signout() {
+        FirebaseAuth.getInstance().signOut();
+        finish();
+        Intent logoutIntentDropDown = new Intent(getApplicationContext(),LoginActivity.class);
+        startActivity(logoutIntentDropDown);
+    }
 }

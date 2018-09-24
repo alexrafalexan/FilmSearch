@@ -16,6 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.bumptech.glide.load.model.FileLoader;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        
+
     }
 
     @Override
@@ -92,7 +97,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_signout) {
+            signout();
 
         }
 
@@ -100,4 +106,12 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-}
+
+    public void signout() {
+        FirebaseAuth.getInstance().signOut();
+        finish();
+        Intent logoutIntentDropDown = new Intent(getApplicationContext(),LoginActivity.class);
+        startActivity(logoutIntentDropDown);
+    }
+    }
+
