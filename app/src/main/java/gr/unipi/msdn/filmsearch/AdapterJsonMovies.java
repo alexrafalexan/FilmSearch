@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import retrofit2.http.Url;
+
 class AdapterJsonMovies extends ArrayAdapter<MoviesDataModel> {
+
+
+    ImageView movieImage;
 
     ArrayList<MoviesDataModel> news;
     Context context;
@@ -39,11 +45,10 @@ class AdapterJsonMovies extends ArrayAdapter<MoviesDataModel> {
         }
         MoviesDataModel news = getItem(position);
 
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.imgNewsPicture);
-        Picasso.with(context).load(news.getResults().get(position).getPosterPath()).into(imageView);
+        movieImage = (ImageView) convertView.findViewById(R.id.moviesimage);
+        Picasso.with(context).load("http://image.tmdb.org/t/p/w185/" + news.getResults().get(position).getPosterPath()).into(movieImage);
 
-        TextView txtName = (TextView) convertView.findViewById(R.id.txtTitle);
-        txtName.setText(news.getResults().get(position).getTitle());
+        ((TextView) convertView.findViewById(R.id.moviestitle)).setText(news.getResults().get(position).getTitle());
 
 
         return convertView;

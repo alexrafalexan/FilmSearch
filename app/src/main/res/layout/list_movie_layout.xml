@@ -5,13 +5,12 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imgNewsPicture"
+        android:id="@+id/moviesimage"
         android:layout_width="100dp"
         android:layout_height="120dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
-        />
+        android:layout_marginTop="5dp"
+        android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -19,16 +18,16 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtTitle"
+            android:id="@+id/moviestitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_gravity="center"
-            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:text="Product name"
             android:textColor="@android:color/background_dark"
-            android:text="Product name"/>
+            android:textSize="20sp" />
 
 
 
