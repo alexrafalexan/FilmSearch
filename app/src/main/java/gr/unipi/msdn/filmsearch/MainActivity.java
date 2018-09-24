@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         // API Interface
         Api api = retrofit.create(Api.class);
 
-        api.getMovies().enqueue(new Callback<MoviesDataModel>() {
+        api.getMovies().enqueue(new Callba<MoviesDataModel>() {
             @Override
             public void onResponse(Call<MoviesDataModel> call, Response<MoviesDataModel> response) {
                 if (response.isSuccessful()) {
@@ -94,37 +94,37 @@ public class MainActivity extends AppCompatActivity {
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                String voteCount = topMoviesList.get(position).getResults().get(position).getVoteCount().toString();
-                                String idm = topMoviesList.get(position).getResults().get(position).getId().toString();
-                                String video = topMoviesList.get(position).getResults().get(position).getVideo().toString();
-                                String voteAverage = topMoviesList.get(position).getResults().get(position).getVoteAverage().toString();
-                                String title = topMoviesList.get(position).getResults().get(position).getTitle().toString();
-                                String popularity = topMoviesList.get(position).getResults().get(position).getPopularity().toString();
-                                String posterPath = topMoviesList.get(position).getResults().get(position).getPosterPath().toString();
-                                String originalLanguage = topMoviesList.get(position).getResults().get(position).getOriginalLanguage().toString();
-                                String originalTitle = topMoviesList.get(position).getResults().get(position).getOriginalTitle().toString();
-                                String backdropPath = topMoviesList.get(position).getResults().get(position).getBackdropPath().toString();
-                                String adult = topMoviesList.get(position).getResults().get(position).getAdult().toString();
-                                String overview = topMoviesList.get(position).getResults().get(position).getOverview().toString();
-                                String releaseDate = topMoviesList.get(position).getResults().get(position).getReleaseDate().toString();
-
-                                Bundle bundle = new Bundle();
-                                bundle.putString("VOTE_COUNT", voteCount);
-                                bundle.putString("IDM", idm);
-                                bundle.putString("VIDEO", video);
-                                bundle.putString("VOTEAVERAGE", voteAverage);
-                                bundle.putString("TITLE", title);
-                                bundle.putString("POPULARITY", popularity);
-                                bundle.putString("POSTERPATH", posterPath);
-                                bundle.putString("ORIGINALLANGUAGE", originalLanguage);
-                                bundle.putString("ORIGINALTITLE", originalTitle);
-                                bundle.putString("BACKDROPPATH", backdropPath);
-                                bundle.putString("ADULT", adult);
-                                bundle.putString("OVERVIEW", overview);
-                                bundle.putString("RELEASEDATE", releaseDate);
-                                Intent newsDisplayActivity = new Intent(MainActivity.this, DisplayMovie.class);
-                                newsDisplayActivity.putExtras(bundle);
-                                startActivity(newsDisplayActivity);
+//                                String voteCount = topMoviesList.get(position).getResults().get(position).getVoteCount().toString();
+//                                String idm = topMoviesList.get(position).getResults().get(position).getId().toString();
+//                                String video = topMoviesList.get(position).getResults().get(position).getVideo().toString();
+//                                String voteAverage = topMoviesList.get(position).getResults().get(position).getVoteAverage().toString();
+//                                String title = topMoviesList.get(position).getResults().get(position).getTitle().toString();
+//                                String popularity = topMoviesList.get(position).getResults().get(position).getPopularity().toString();
+//                                String posterPath = topMoviesList.get(position).getResults().get(position).getPosterPath().toString();
+//                                String originalLanguage = topMoviesList.get(position).getResults().get(position).getOriginalLanguage().toString();
+//                                String originalTitle = topMoviesList.get(position).getResults().get(position).getOriginalTitle().toString();
+//                                String backdropPath = topMoviesList.get(position).getResults().get(position).getBackdropPath().toString();
+//                                String adult = topMoviesList.get(position).getResults().get(position).getAdult().toString();
+//                                String overview = topMoviesList.get(position).getResults().get(position).getOverview().toString();
+//                                String releaseDate = topMoviesList.get(position).getResults().get(position).getReleaseDate().toString();
+//
+//                                Bundle bundle = new Bundle();
+//                                bundle.putString("VOTE_COUNT", voteCount);
+//                                bundle.putString("IDM", idm);
+//                                bundle.putString("VIDEO", video);
+//                                bundle.putString("VOTEAVERAGE", voteAverage);
+//                                bundle.putString("TITLE", title);
+//                                bundle.putString("POPULARITY", popularity);
+//                                bundle.putString("POSTERPATH", posterPath);
+//                                bundle.putString("ORIGINALLANGUAGE", originalLanguage);
+//                                bundle.putString("ORIGINALTITLE", originalTitle);
+//                                bundle.putString("BACKDROPPATH", backdropPath);
+//                                bundle.putString("ADULT", adult);
+//                                bundle.putString("OVERVIEW", overview);
+//                                bundle.putString("RELEASEDATE", releaseDate);
+//                                Intent newsDisplayActivity = new Intent(MainActivity.this, DisplayMovie.class);
+//                                newsDisplayActivity.putExtras(bundle);
+//                                startActivity(newsDisplayActivity);
                             }
                         });
                     }
@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MoviesDataModel> call, Throwable t) {
+                Log.e("ERROR", "ERROR MESSAGE:" + t.getMessage());
             }
         });
     }
