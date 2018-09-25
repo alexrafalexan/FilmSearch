@@ -2,6 +2,7 @@ package gr.unipi.msdn.filmsearch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -15,11 +16,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class FavActivity extends SideBarMenu {
+public class FavActivity extends SideBarMenu  {
 
     ListView favListView;
     ArrayList<MoviesDataModel> favList;
     ProgressBar progressBar;
+    String TAG = "FavActivity";
 
     // Firebase
     private FirebaseDatabase mDatabase;
@@ -34,8 +36,8 @@ public class FavActivity extends SideBarMenu {
         // Create Layout
         setContentView(R.layout.activity_main);
         progressBar = findViewById(R.id.progressmain);
-        favListView =  (ListView) findViewById(R.id.favlistmovies);
-        SideBarMenu(R.id.favmovieslayout, R.id.nav_view);
+        favListView =  (ListView) findViewById(R.id.toplistmovies);
+        SideBarMenu(R.id.toplistmovieslayout, R.id.nav_view);
 
         // Connection Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -91,12 +93,19 @@ public class FavActivity extends SideBarMenu {
             favArrayList.add(getData.getVoteAverage());
             favArrayList.add(getData.getOverview());
 
+            Log.i(TAG, getData.getBackdropPath());
+            Log.i(TAG, getData.getOverview());
+            Log.i(TAG, getData.getPosterPath());
+            Log.i(TAG, getData.getTitle());
+            Log.i(TAG, getData.getVoteAverage());
+
+
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, favArrayList);
             favListView.setAdapter(adapter);
         }
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, favArrayList);
-        favListView.setAdapter(adapter);
+//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, favArrayList);
+//        favListView.setAdapter(adapter);
     }
 
 }
