@@ -26,6 +26,14 @@
             android:progressDrawable="@drawable/circle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/searchmessage"
+            android:layout_width="221dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:text="Click on Search Button" />
     </RelativeLayout>
 
     <ListView

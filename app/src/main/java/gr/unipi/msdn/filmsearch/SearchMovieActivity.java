@@ -3,11 +3,16 @@ package gr.unipi.msdn.filmsearch;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -24,6 +29,7 @@ public class SearchMovieActivity extends SideBarMenu {
     ListView listView;
     ArrayList<MoviesDataModel> searchList;
     ProgressBar progressBar;
+    TextView textMessageSearch;
 
     // Firebase
     FirebaseAuth mAuth;
@@ -37,10 +43,36 @@ public class SearchMovieActivity extends SideBarMenu {
         // Connection Firebase
         mAuth = FirebaseAuth.getInstance();
         searchList = new ArrayList<>();
+
         listView =  (ListView) findViewById(R.id.toplistmovies);
+        getMoviesSearch("");
+        textMessageSearch = (TextView) findViewById(R.id.searchmessage);
 
         SideBarMenu(R.id.toplistmovieslayout, R.id.nav_view);
-        getMoviesSearch("iron");
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search,menu);
+        MenuItem item = menu.findItem(R.id.menuSearch);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                getMoviesSearch(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -133,14 +165,5 @@ public class SearchMovieActivity extends SideBarMenu {
             }
         });
     }
-
-    public void signOut() {
-        FirebaseAuth.getInstance().signOut();
-        finish();
-        Intent logoutIntentDropDown = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(logoutIntentDropDown);
-    }
-
-
 }
 
