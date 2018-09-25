@@ -1,29 +1,17 @@
 package gr.unipi.msdn.filmsearch;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -37,12 +25,10 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import android.support.v4.app.Fragment;
 
 import java.io.IOException;
-import java.net.URI;
 
-public class ProfilActivity extends AppCompatActivity implements View.OnClickListener{
+public class ProfilActivity extends SideBarMenu  implements View.OnClickListener{
 
     private static final int CHOOSE_IMAGE = 101;
     ImageView photoImage;
@@ -71,8 +57,9 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.photo).setOnClickListener(this);
         findViewById(R.id.btsave).setOnClickListener(this);
 
-        // Load user profile info
-        loadUserInfo();
+
+        SideBarMenu();
+        LoadUserInfo();
 
     }
 
@@ -121,7 +108,7 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void loadUserInfo() {
+    private void LoadUserInfo() {
         FirebaseUser user = mAuth.getCurrentUser();
 
         if(user.getPhotoUrl() != null){

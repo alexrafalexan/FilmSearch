@@ -29,6 +29,8 @@ public class MainActivity extends SideBarMenu {
     FirebaseAuth mAuth;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +40,8 @@ public class MainActivity extends SideBarMenu {
         mAuth = FirebaseAuth.getInstance();
         topMoviesList = new ArrayList<>();
         listView =  (ListView) findViewById(R.id.toplistmovies);
-        SideBarMenu();
 
+        SideBarMenu();
         getTopMovies();
     }
 
@@ -140,5 +142,7 @@ public class MainActivity extends SideBarMenu {
         Intent logoutIntentDropDown = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(logoutIntentDropDown);
     }
+
+
 }
 
