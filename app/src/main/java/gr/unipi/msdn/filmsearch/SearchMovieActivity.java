@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -29,7 +28,6 @@ public class SearchMovieActivity extends SideBarMenu {
     ListView listView;
     ArrayList<MoviesDataModel> searchList;
     ProgressBar progressBar;
-    TextView textMessageSearch;
 
     // Firebase
     FirebaseAuth mAuth;
@@ -46,9 +44,8 @@ public class SearchMovieActivity extends SideBarMenu {
 
         listView = (ListView) findViewById(R.id.toplistmovies);
         getMoviesSearch("");
-        textMessageSearch = (TextView) findViewById(R.id.searchmessage);
 
-        SideBarMenu(R.id.toplistmovieslayout, R.id.nav_view);
+        SideBarMenu(R.id.listmovieslayout, R.id.nav_view);
 
 
     }
