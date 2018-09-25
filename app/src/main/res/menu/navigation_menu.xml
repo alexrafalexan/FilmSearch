@@ -2,14 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/top_movies"
-        android:title="Top Movies"></item>
+        android:title="Top Movies"
+        android:icon="@drawable/ic_actionbar_star"></item>
     <item android:id="@+id/search"
-        android:title="Search Movie"></item>
+        android:title="Search Movie"
+        android:icon="@drawable/ic_actionbar_search"></item>
     <item android:id="@+id/favorites"
-        android:title="Favorite"></item>
+        android:title="Favorite"
+        android:icon="@drawable/ic_actionbar_fav"></item>
     <item android:id="@+id/profile"
-        android:title="Profile"></item>
+        android:title="Profile"
+        android:icon="@drawable/ic_actionbar_profil"></item>
     <item android:id="@+id/sign_out"
-        android:title="Sign out"></item>
+        android:title="Sign out"
+        android:icon="@drawable/ic_actionbar_exit"></item>
 
 </menu>
