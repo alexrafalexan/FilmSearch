@@ -37,7 +37,7 @@ public class MainActivity extends SideBarMenu {
         // Connection Firebase
         mAuth = FirebaseAuth.getInstance();
         topMoviesList = new ArrayList<>();
-        listView =  (ListView) findViewById(R.id.toplistmovies);
+        listView =  (ListView) findViewById(R.id.listmovies);
 
         SideBarMenu(R.id.listmovieslayout, R.id.nav_view);
         getTopMovies();

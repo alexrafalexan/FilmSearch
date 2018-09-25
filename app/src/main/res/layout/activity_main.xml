@@ -25,11 +25,12 @@
             android:progress="80"
             android:progressDrawable="@drawable/circle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/toplistmovies"
+        android:id="@+id/listmovies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true" />

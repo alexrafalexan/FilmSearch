@@ -42,7 +42,7 @@ public class SearchMovieActivity extends SideBarMenu {
         mAuth = FirebaseAuth.getInstance();
         searchList = new ArrayList<>();
 
-        listView = (ListView) findViewById(R.id.toplistmovies);
+        listView = (ListView) findViewById(R.id.listmovies);
         getMoviesSearch("");
 
         SideBarMenu(R.id.listmovieslayout, R.id.nav_view);

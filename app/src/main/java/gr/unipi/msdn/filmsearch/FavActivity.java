@@ -36,7 +36,7 @@ public class FavActivity extends SideBarMenu  {
         // Create Layout
         setContentView(R.layout.activity_main);
         progressBar = findViewById(R.id.progressmain);
-        favListView =  (ListView) findViewById(R.id.toplistmovies);
+        favListView =  (ListView) findViewById(R.id.listmovies);
         SideBarMenu(R.id.listmovieslayout, R.id.nav_view);
 
         // Connection Firebase
