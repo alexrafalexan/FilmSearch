@@ -8,6 +8,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +36,7 @@ public class DisplayMovie extends AppCompatActivity {
     String backdropPath, posterPath, title, voteAverage, overview;
     ImageView mbackdropPath, mposterPath,fav,favend;
     TextView mtitle, mvoteAverage, moverview;
+    ProgressBar progressBar;
 
 
     @Override
@@ -43,6 +45,8 @@ public class DisplayMovie extends AppCompatActivity {
         setContentView(R.layout.activity_display_movie);
 
         // Content Layout
+        progressBar =findViewById(R.id.progressdisplaymovie);
+
         mbackdropPath = findViewById(R.id.backdroppath);
         backdropPath = "http://image.tmdb.org/t/p/w185/" +getValueBundle().get(0).toString();
         Picasso.with(context).load(backdropPath).into(mbackdropPath);
@@ -134,11 +138,16 @@ public class DisplayMovie extends AppCompatActivity {
                 // Disable Stared if Article is Favorite //
                 String favTitleRec = dataretrieval.getTitle().toString();
                 Log.d("favTitleRec", dataretrieval.getTitle().toString());
+                progressBar.setVisibility(View.VISIBLE);
                 if (favTitleRec.contains(title)) {
                     fav.setVisibility(View.GONE);
                     favend.setVisibility(View.VISIBLE);
                     // Disable Push Button favend //
                     favend.setEnabled(false);
+                    progressBar.setVisibility(View.GONE);
+                }
+                else{
+                    progressBar.setVisibility(View.GONE);
                 }
 
                 // -- Dokimes Eksagogis se lista -- //
