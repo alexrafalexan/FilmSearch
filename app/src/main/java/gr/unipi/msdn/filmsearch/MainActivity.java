@@ -41,7 +41,7 @@ public class MainActivity extends SideBarMenu {
         topMoviesList = new ArrayList<>();
         listView =  (ListView) findViewById(R.id.toplistmovies);
 
-        SideBarMenu();
+        SideBarMenu(R.id.toplistmovieslayout, R.id.nav_view);
         getTopMovies();
     }
 

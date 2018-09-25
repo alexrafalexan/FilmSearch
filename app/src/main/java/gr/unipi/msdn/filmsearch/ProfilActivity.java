@@ -58,7 +58,7 @@ public class ProfilActivity extends SideBarMenu  implements View.OnClickListener
         findViewById(R.id.btsave).setOnClickListener(this);
 
 
-        SideBarMenu();
+        SideBarMenu(R.id.profillayout, R.id.nav_view);
         LoadUserInfo();
 
     }

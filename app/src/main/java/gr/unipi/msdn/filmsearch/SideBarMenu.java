@@ -7,6 +7,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,9 +18,10 @@ public class SideBarMenu extends AppCompatActivity implements NavigationView.OnN
     public ActionBarDrawerToggle mToggle;
     public NavigationView mnavigationView;
 
-    public  void SideBarMenu() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.toplistmovieslayout);
-        mnavigationView = (NavigationView) findViewById(R.id.nav_view);
+    public  void SideBarMenu(int layout, int nav_view) {
+        Log.i("int", "SideBarMenu: " + nav_view);
+        mDrawerLayout = (DrawerLayout) findViewById(layout);
+        mnavigationView = (NavigationView) findViewById(nav_view);
 
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
