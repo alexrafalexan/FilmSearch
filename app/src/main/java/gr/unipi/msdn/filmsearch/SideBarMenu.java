@@ -9,29 +9,46 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SideBarMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+
     public DrawerLayout mDrawerLayout;
     public ActionBarDrawerToggle mToggle;
-    public NavigationView mnavigationView;
+    public NavigationView mNavigationView;
+    ImageView imagePic;
+    TextView textView;
 
-    public  void SideBarMenu(int layout, int nav_view) {
+//    public TextView textview = headerview.findViewById(R.id.profilname);
+
+
+    FirebaseAuth mAuth;
+
+    public void SideBarMenu(int layout, int nav_view) {
         Log.i("int", "SideBarMenu: " + nav_view);
+
         mDrawerLayout = (DrawerLayout) findViewById(layout);
-        mnavigationView = (NavigationView) findViewById(nav_view);
+        mNavigationView = (NavigationView) findViewById(nav_view);
+        View headerview = mNavigationView.getHeaderView(0);
+        imagePic = (ImageView) headerview.findViewById(R.id.sidebarpimage);
+        textView = (TextView) headerview.findViewById(R.id.profilname);
 
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mnavigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
-
-
+        mAuth = FirebaseAuth.getInstance();
+        LoadUserInfo();
     }
 
     @Override
@@ -58,6 +75,19 @@ public class SideBarMenu extends AppCompatActivity implements NavigationView.OnN
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    private void LoadUserInfo() {
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user.getPhotoUrl() != null) {
+            Glide.with(this)
+                    .load(user.getPhotoUrl().toString())
+                    .into(imagePic);
+        }
+        if (user.getDisplayName() != null) {
+            textView.setText(user.getDisplayName());
+        }
     }
 
     public void logout() {
