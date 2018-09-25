@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "85321275685",
+    "firebase_url": "https://filmsearch-49abc.firebaseio.com",
+    "project_id": "filmsearch-49abc",
+    "storage_bucket": "filmsearch-49abc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85321275685:android:01b87f57de75bfef",
+        "android_client_info": {
+          "package_name": "gr.unipi.msdn.filmsearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85321275685-dkb5ako488jogauukfrq4vsht5111uhi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "gr.unipi.msdn.filmsearch",
+            "certificate_hash": "f7855eae39f37134d9bbbbe74d04db1ad73355dd"
+          }
+        },
+        {
+          "client_id": "85321275685-2ion09jlsrkbdjcosm3enplh5sj0gtkp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe5tES0m_9c1Ullnw9Km0Jx4QxEDHiAcE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85321275685-2ion09jlsrkbdjcosm3enplh5sj0gtkp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
