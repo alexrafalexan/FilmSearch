@@ -2,7 +2,6 @@ package gr.unipi.msdn.filmsearch;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,7 +19,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends SideBarMenu {
 
     ListView listView;
     ArrayList<MoviesDataModel> topMoviesList;
@@ -38,8 +37,10 @@ public class MainActivity extends AppCompatActivity {
         // Connection Firebase
         mAuth = FirebaseAuth.getInstance();
         topMoviesList = new ArrayList<>();
-        listView = findViewById(R.id.toplistmovies);
-        getMovies();
+        listView =  (ListView) findViewById(R.id.toplistmovies);
+        SideBarMenu();
+
+        getTopMovies();
     }
 
     @Override
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void getMovies() {
+    private void getTopMovies() {
 
         // Create Connection get Api Result
         Retrofit retrofit = new Retrofit.Builder()
