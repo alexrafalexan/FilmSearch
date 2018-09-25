@@ -2,7 +2,6 @@ package gr.unipi.msdn.filmsearch;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -16,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FavActivity extends SideBarMenu {
 
@@ -24,6 +24,7 @@ public class FavActivity extends SideBarMenu {
     ProgressBar progressBar;
     String TAG = "FavActivity";
     long numberOfFavoriteMovies;
+    List<FireBaseAdapterMovie> movieList;
 
     // Firebase
     private FirebaseDatabase mDatabase;
@@ -40,6 +41,7 @@ public class FavActivity extends SideBarMenu {
         progressBar = findViewById(R.id.progressmain);
         favListView = (ListView) findViewById(R.id.listmovies);
         SideBarMenu(R.id.listmovieslayout, R.id.nav_view);
+        movieList = new ArrayList<>();
 
         // Connection Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -62,7 +64,7 @@ public class FavActivity extends SideBarMenu {
         mDdreference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                numberOfFavoriteMovies = getNumberOfFavoriteMovies(dataSnapshot);
+               // numberOfFavoriteMovies = getNumberOfFavoriteMovies(dataSnapshot);
             }
 
             @Override
@@ -110,20 +112,25 @@ public class FavActivity extends SideBarMenu {
     }
 
     private Long getNumberOfFavoriteMovies(DataSnapshot dataSnapshot) {
-        ArrayList<String> favArrayList = new ArrayList<>();
-        DataSnapshot getSnap = dataSnapshot;
-        for (DataSnapshot dataSnap: dataSnapshot.getChildren()) {
-            FireBaseAdapter getData = getSnap.getValue(FireBaseAdapter.class);
-            String JsonRD = dataSnap.getChildren().toString();
-            Log.i(TAG,JsonRD);
+//        ArrayList<String> favArrayList = new ArrayList<>();
+//        DataSnapshot getSnap = dataSnapshot;
+
+//        Log.e(TAG, "" + getSnap.getChildrenCount());
+        movieList.clear();
+        for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
+            FireBaseAdapterMovie fireBaseAdapterMovie = movieSnapshot.getValue(FireBaseAdapterMovie.class);
+
+            movieList.add(fireBaseAdapterMovie);
+
+            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, movieList);
+            favListView.setAdapter(adapter);
 
         }
-
-
-            long i = getSnap.getChildrenCount();
-            Log.i(TAG, "Number of Favorite Movies: " + getSnap.getChildrenCount());
-            Log.i(TAG, "Number of Favorite Movies: " + getSnap.getValue());
-            return i;
+//        long i = getSnap.getChildrenCount();
+////        Log.i(TAG, "Number of Favorite Movies: " + getSnap.getChildrenCount());
+////        Log.i(TAG, "Number of Favorite Movies: " + getSnap.getValue());
+        long i =0;
+        return i;
     }
 
 
