@@ -2,45 +2,72 @@ package gr.unipi.msdn.filmsearch;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class FavActivity extends SideBarMenu {
 
-    ListView listView;
-    ArrayList<MoviesDataModel> topMoviesList;
+    ListView favListView;
+    ArrayList<MoviesDataModel> favList;
     ProgressBar progressBar;
 
     // Firebase
-    FirebaseAuth mAuth;
+    private FirebaseDatabase mDatabase;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDdreference;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Create Layout
         setContentView(R.layout.activity_main);
         progressBar = findViewById(R.id.progressmain);
+        favListView =  (ListView) findViewById(R.id.favlistmovies);
+        SideBarMenu(R.id.favmovieslayout, R.id.nav_view);
+
         // Connection Firebase
         mAuth = FirebaseAuth.getInstance();
-        topMoviesList = new ArrayList<>();
-        listView =  (ListView) findViewById(R.id.toplistmovies);
+        mDatabase = FirebaseDatabase.getInstance();
+        mDdreference = mDatabase.getReference("Stared/").child(mAuth.getUid());
 
-        SideBarMenu(R.id.toplistmovieslayout, R.id.nav_view);
-        getTopMovies();
+        mDdreference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                getFavotiteMovies(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -53,94 +80,24 @@ public class FavActivity extends SideBarMenu {
         }
     }
 
-    private void getTopMovies() {
+    private void getFavotiteMovies(DataSnapshot dataSnapshot) {
+        ArrayList<String> favArrayList = new ArrayList<>();
+        for (DataSnapshot dataSnap: dataSnapshot.getChildren()){
+            DataSnapshot getSnap = dataSnapshot;
+            FireBaseAdapterMovie getData = getSnap.getValue(FireBaseAdapterMovie.class);
+            favArrayList.add(getData.getBackdropPath());
+            favArrayList.add(getData.getPosterPath());
+            favArrayList.add(getData.getTitle());
+            favArrayList.add(getData.getVoteAverage());
+            favArrayList.add(getData.getOverview());
 
-        // Create Connection get ApiTopMovies Result
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiTopMovies.URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, favArrayList);
+            favListView.setAdapter(adapter);
+        }
 
-        // API Interface
-        ApiTopMovies apiTopMovies = retrofit.create(ApiTopMovies.class);
-
-        progressBar.setVisibility(View.VISIBLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        apiTopMovies.getTopMovies().enqueue(new Callback<MoviesDataModel>() {
-            @Override
-            public void onResponse(Call<MoviesDataModel> call, Response<MoviesDataModel> response) {
-                progressBar.setVisibility(View.GONE);
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                if (response.isSuccessful()) {
-                    final MoviesDataModel topMovies = response.body();
-                    for (int i = 0; i < topMovies.getResults().size(); i++) {
-                        topMoviesList.add(new MoviesDataModel(
-                                        topMovies.getPage(),
-                                        topMovies.getTotalResults(),
-                                        topMovies.getTotalPages(),
-                                        topMovies.getResults()
-                                )
-                        );
-
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                String voteCount = topMoviesList.get(position).getResults().get(position).getVoteCount().toString();
-                                String idm = topMoviesList.get(position).getResults().get(position).getId().toString();
-                                String video = topMoviesList.get(position).getResults().get(position).getVideo().toString();
-                                String voteAverage = topMoviesList.get(position).getResults().get(position).getVoteAverage().toString();
-                                String title = topMoviesList.get(position).getResults().get(position).getTitle().toString();
-                                String popularity = topMoviesList.get(position).getResults().get(position).getPopularity().toString();
-                                String posterPath = topMoviesList.get(position).getResults().get(position).getPosterPath().toString();
-                                String originalLanguage = topMoviesList.get(position).getResults().get(position).getOriginalLanguage().toString();
-                                String originalTitle = topMoviesList.get(position).getResults().get(position).getOriginalTitle().toString();
-                                String backdropPath = topMoviesList.get(position).getResults().get(position).getBackdropPath().toString();
-                                String adult = topMoviesList.get(position).getResults().get(position).getAdult().toString();
-                                String overview = topMoviesList.get(position).getResults().get(position).getOverview().toString();
-                                String releaseDate = topMoviesList.get(position).getResults().get(position).getReleaseDate().toString();
-
-                                Bundle bundle = new Bundle();
-                                bundle.putString("VOTE_COUNT", voteCount);
-                                bundle.putString("IDM", idm);
-                                bundle.putString("VIDEO", video);
-                                bundle.putString("VOTEAVERAGE", voteAverage);
-                                bundle.putString("TITLE", title);
-                                bundle.putString("POPULARITY", popularity);
-                                bundle.putString("POSTERPATH", posterPath);
-                                bundle.putString("ORIGINALLANGUAGE", originalLanguage);
-                                bundle.putString("ORIGINALTITLE", originalTitle);
-                                bundle.putString("BACKDROPPATH", backdropPath);
-                                bundle.putString("ADULT", adult);
-                                bundle.putString("OVERVIEW", overview);
-                                bundle.putString("RELEASEDATE", releaseDate);
-                                Intent displayMovie = new Intent(FavActivity.this, DisplayMovie.class);
-                                displayMovie.putExtras(bundle);
-                                startActivity(displayMovie);
-                            }
-                        });
-                    }
-                } else {
-                    Log.e("Fail:", "Fail" + response.code());
-                }
-                AdapterJsonMovies adapter = new AdapterJsonMovies(getApplicationContext(), R.layout.list_movie_layout, topMoviesList);
-                listView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onFailure(Call<MoviesDataModel> call, Throwable t) {
-                Log.e("ERROR", "ERROR MESSAGE:" + t.getMessage());
-            }
-        });
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, favArrayList);
+        favListView.setAdapter(adapter);
     }
-
-    public void signOut() {
-        FirebaseAuth.getInstance().signOut();
-        finish();
-        Intent logoutIntentDropDown = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(logoutIntentDropDown);
-    }
-
 
 }
 
