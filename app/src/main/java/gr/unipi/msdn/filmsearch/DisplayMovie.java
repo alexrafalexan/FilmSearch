@@ -20,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -149,15 +148,6 @@ public class DisplayMovie extends AppCompatActivity {
                 else{
                     progressBar.setVisibility(View.GONE);
                 }
-
-                // -- Dokimes Eksagogis se lista -- //
-                long countFav = post.getChildrenCount();
-                String favPushRetrieval = post.getKey();
-                String favPushTitle = favTitleRec + "," + favPushRetrieval;
-                List<String> favTitleRetrievalList = new ArrayList<String>(Arrays.asList(favPushTitle.split(",")));
-                Log.d("FavoriteNews", favTitleRec + " " + favPushTitle + " " + favTitleRetrievalList);
-                Log.d("FavoriteIDs", favPushRetrieval);
-                // -- Telos Dokimes Eksagogis se lista -- //
             }
 
             @Override
