@@ -8,8 +8,6 @@ public class FireBaseAdapterMovie {
     private String title;
     private String voteAverage;
 
-
-
     public FireBaseAdapterMovie() {
         this.backdropPath = backdropPath;
         this.overview = overview;
