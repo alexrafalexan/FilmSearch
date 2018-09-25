@@ -44,11 +44,12 @@ public class SearchMovieActivity extends SideBarMenu {
         mAuth = FirebaseAuth.getInstance();
         searchList = new ArrayList<>();
 
-        listView =  (ListView) findViewById(R.id.toplistmovies);
+        listView = (ListView) findViewById(R.id.toplistmovies);
         getMoviesSearch("");
         textMessageSearch = (TextView) findViewById(R.id.searchmessage);
 
         SideBarMenu(R.id.toplistmovieslayout, R.id.nav_view);
+
 
     }
 
@@ -56,19 +57,19 @@ public class SearchMovieActivity extends SideBarMenu {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_search,menu);
+        inflater.inflate(R.menu.menu_search, menu);
         MenuItem item = menu.findItem(R.id.menuSearch);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                getMoviesSearch(query);
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
+                getMoviesSearch(newText);
                 return false;
             }
         });
@@ -92,6 +93,7 @@ public class SearchMovieActivity extends SideBarMenu {
                 .baseUrl(ApiSearch.URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        searchList.clear();
 
         // API Interface
         ApiSearch apiSearch = retrofit.create(ApiSearch.class);
