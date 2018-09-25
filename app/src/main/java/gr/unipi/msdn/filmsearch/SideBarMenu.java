@@ -65,7 +65,7 @@ public class SideBarMenu extends AppCompatActivity implements NavigationView.OnN
         if (id == R.id.top_movies) {
             startActivity(new Intent(this, MainActivity.class));
         } else if (id == R.id.search) {
-//              startActivity(new Intent(this,SearchMovie.class));
+            startActivity(new Intent(this, SearchMovieActivity.class));
         } else if (id == R.id.favorites) {
             //   startActivity(new Intent(this,FavoritesMovies.class));
         } else if (id == R.id.profile) {

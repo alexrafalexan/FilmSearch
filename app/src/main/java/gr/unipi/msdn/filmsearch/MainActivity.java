@@ -29,8 +29,6 @@ public class MainActivity extends SideBarMenu {
     FirebaseAuth mAuth;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,19 +55,19 @@ public class MainActivity extends SideBarMenu {
 
     private void getTopMovies() {
 
-        // Create Connection get Api Result
+        // Create Connection get ApiTopMovies Result
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.URL)
+                .baseUrl(ApiTopMovies.URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         // API Interface
-        Api api = retrofit.create(Api.class);
+        ApiTopMovies apiTopMovies = retrofit.create(ApiTopMovies.class);
 
         progressBar.setVisibility(View.VISIBLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        api.getMovies().enqueue(new Callback<MoviesDataModel>() {
+        apiTopMovies.getTopMovies().enqueue(new Callback<MoviesDataModel>() {
             @Override
             public void onResponse(Call<MoviesDataModel> call, Response<MoviesDataModel> response) {
                 progressBar.setVisibility(View.GONE);
