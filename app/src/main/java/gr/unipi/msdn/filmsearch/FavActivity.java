@@ -8,7 +8,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,52 +52,11 @@ public class FavActivity extends SideBarMenu {
         mDdreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-            //   numberOfFavoriteMovies = getNumberOfFavoriteMovies(dataSnapshot);
+                getFavoriteMovies(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mDdreference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-         //       numberOfFavoriteMovies = getNumberOfFavoriteMovies(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mDdreference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                numberOfFavoriteMovies = getNumberOfFavoriteMovies(dataSnapshot);
-               getNumberOfFavoriteMovies(dataSnapshot);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
@@ -113,69 +71,16 @@ public class FavActivity extends SideBarMenu {
         }
     }
 
-    private Long getNumberOfFavoriteMovies(DataSnapshot dataSnapshot) {
-//        ArrayList<String> favArrayList = new ArrayList<>();
-//        DataSnapshot getSnap = dataSnapshot;
-
-//        Log.e(TAG, "" + getSnap.getChildrenCount());
+    private void getFavoriteMovies(DataSnapshot dataSnapshot) {
         movieList.clear();
         for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
-           FireBaseAdapterMovie fireBaseAdapter = movieSnapshot.getValue(FireBaseAdapterMovie.class);
-
-            movieList.add(fireBaseAdapter);
-//            movieList.add(fireBaseAdapter)
-          // Log.i(TAG, movieSnapshot.toString());
-
+            FireBaseAdapterMovie fireBaseAdapterMovie = movieSnapshot.getValue(FireBaseAdapterMovie.class);
+            Log.i(TAG, movieSnapshot.toString());
+            movieList.add(fireBaseAdapterMovie);
             Log.e(TAG, "BackDropPath :" + movieSnapshot.getValue());
-//            Log.i(TAG, movieSnapshot.child("overview").getValue().toString());
-//            Log.i(TAG, movieSnapshot.child("posterPath").getValue().toString());
-//            Log.i(TAG, movieSnapshot.child("title").getValue().toString());
-//            Log.i(TAG, movieSnapshot.child("voteAverage").getValue().toString());
-
-
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, movieList);
             favListView.setAdapter(adapter);
-
         }
-//        long i = getSnap.getChildrenCount();
-////        Log.i(TAG, "Number of Favorite Movies: " + getSnap.getChildrenCount());
-////        Log.i(TAG, "Number of Favorite Movies: " + getSnap.getValue());
-        long i =0;
-        return i;
-    }
-
-
-    private void getFavotiteMovies(DataSnapshot dataSnapshot) {
-        ArrayList<String> favArrayList = new ArrayList<>();
-//        for (DataSnapshot dataSnap: dataSnapshot.getChildren()){
-        DataSnapshot getSnap = dataSnapshot;
-//        Log.i(TAG, getSnap.getValue().toString());
-////        Log.i(TAG, "Long Value" + getSnap.getChildrenCount());
-////        Log.i(TAG, "Number of Favorite Movies: ");
-
-        FireBaseAdapter getData = getSnap.getValue(FireBaseAdapter.class);
-
-//            String backdropPath, overview, posterPath, title, voteAverage;
-
-//            favArrayList.add(getData.getBackdropPath());
-//            favArrayList.add(getData.getPosterPath());
-//            favArrayList.add(getData.getTitle());
-//            favArrayList.add(getData.getVoteAverage());
-//            favArrayList.add(getData.getOverview());
-
-//            Log.i(TAG, getData.getBackdropPath());
-//            Log.i(TAG, getData.getOverview());
-//            Log.i(TAG, getData.getPosterPath());
-//            Log.i(TAG, getData.getTitle());
-//            Log.i(TAG, getData.getVoteAverage());
-
-
-        // --- TEST CODE --- //
-
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, favArrayList);
-        favListView.setAdapter(adapter);
-//        }
     }
 
 }
