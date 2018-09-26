@@ -17,11 +17,11 @@ import java.util.ArrayList;
 
 public class FavActivity extends SideBarMenu {
 
-    ListView favListView;
-    ProgressBar progressBar;
-    String TAG = "FavActivity";
-    long numberOfFavoriteMovies;
-    ArrayList<FirebaseMovieDataModel> movieList;
+    private ListView favListView;
+    private ProgressBar progressBar;
+    private String TAG = "FavActivity";
+    private long numberOfFavoriteMovies;
+    private ArrayList<FirebaseMovieDataModel> movieList;
 
     // Firebase
     private FirebaseDatabase mDatabase;
@@ -74,10 +74,9 @@ public class FavActivity extends SideBarMenu {
             FirebaseMovieDataModel firebaseMovieDataModel = movieSnapshot.getValue(FirebaseMovieDataModel.class);
             Log.i(TAG, movieSnapshot.toString());
             movieList.add(firebaseMovieDataModel);
-            AdapterMoviesFirebase adapter = new AdapterMoviesFirebase(this, android.R.layout.simple_list_item_1, movieList);
+            AdapterMoviesFirebase adapter = new AdapterMoviesFirebase(this, R.layout.list_movie_layout, movieList);
             favListView.setAdapter(adapter);
         }
     }
-
 }
 
