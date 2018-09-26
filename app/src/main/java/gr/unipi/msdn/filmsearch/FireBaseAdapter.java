@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class FireBaseAdapter {
 
-    private ArrayList<FireBaseAdapterMovie> fireBaseAdapter;
+    private ArrayList<FireBaseAdapterMovie> fireBaseAdapter = null;
 
     public FireBaseAdapter() {
         this.fireBaseAdapter = fireBaseAdapter;

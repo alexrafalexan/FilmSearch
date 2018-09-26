@@ -2,6 +2,7 @@ package gr.unipi.msdn.filmsearch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -52,7 +53,7 @@ public class FavActivity extends SideBarMenu {
         mDdreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                numberOfFavoriteMovies = getNumberOfFavoriteMovies(dataSnapshot);
+            //   numberOfFavoriteMovies = getNumberOfFavoriteMovies(dataSnapshot);
             }
 
             @Override
@@ -64,7 +65,7 @@ public class FavActivity extends SideBarMenu {
         mDdreference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-               // numberOfFavoriteMovies = getNumberOfFavoriteMovies(dataSnapshot);
+         //       numberOfFavoriteMovies = getNumberOfFavoriteMovies(dataSnapshot);
             }
 
             @Override
@@ -76,7 +77,8 @@ public class FavActivity extends SideBarMenu {
         mDdreference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                getFavotiteMovies(dataSnapshot);
+//                numberOfFavoriteMovies = getNumberOfFavoriteMovies(dataSnapshot);
+               getNumberOfFavoriteMovies(dataSnapshot);
             }
 
             @Override
@@ -118,9 +120,18 @@ public class FavActivity extends SideBarMenu {
 //        Log.e(TAG, "" + getSnap.getChildrenCount());
         movieList.clear();
         for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
-            FireBaseAdapterMovie fireBaseAdapterMovie = movieSnapshot.getValue(FireBaseAdapterMovie.class);
+           FireBaseAdapterMovie fireBaseAdapter = movieSnapshot.getValue(FireBaseAdapterMovie.class);
 
-            movieList.add(fireBaseAdapterMovie);
+            movieList.add(fireBaseAdapter);
+//            movieList.add(fireBaseAdapter)
+          // Log.i(TAG, movieSnapshot.toString());
+
+            Log.e(TAG, "BackDropPath :" + movieSnapshot.getValue());
+//            Log.i(TAG, movieSnapshot.child("overview").getValue().toString());
+//            Log.i(TAG, movieSnapshot.child("posterPath").getValue().toString());
+//            Log.i(TAG, movieSnapshot.child("title").getValue().toString());
+//            Log.i(TAG, movieSnapshot.child("voteAverage").getValue().toString());
+
 
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, movieList);
             favListView.setAdapter(adapter);
@@ -143,6 +154,7 @@ public class FavActivity extends SideBarMenu {
 ////        Log.i(TAG, "Number of Favorite Movies: ");
 
         FireBaseAdapter getData = getSnap.getValue(FireBaseAdapter.class);
+
 //            String backdropPath, overview, posterPath, title, voteAverage;
 
 //            favArrayList.add(getData.getBackdropPath());

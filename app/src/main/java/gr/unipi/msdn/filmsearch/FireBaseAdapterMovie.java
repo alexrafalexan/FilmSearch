@@ -9,11 +9,6 @@ public class FireBaseAdapterMovie {
     private String voteAverage;
 
     public FireBaseAdapterMovie() {
-        this.backdropPath = backdropPath;
-        this.overview = overview;
-        this.posterPath = posterPath;
-        this.title = title;
-        this.voteAverage = voteAverage;
     }
 
     public FireBaseAdapterMovie(String backdropPath, String overview, String posterPath, String title, String voteAverage) {
