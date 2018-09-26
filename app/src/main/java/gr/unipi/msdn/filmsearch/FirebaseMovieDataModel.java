@@ -1,6 +1,6 @@
 package gr.unipi.msdn.filmsearch;
 
-public class FireBaseAdapterMovie {
+public class FirebaseMovieDataModel {
 
     private String backdropPath;
     private String overview;
@@ -8,10 +8,10 @@ public class FireBaseAdapterMovie {
     private String title;
     private String voteAverage;
 
-    public FireBaseAdapterMovie() {
+    public FirebaseMovieDataModel() {
     }
 
-    public FireBaseAdapterMovie(String backdropPath, String overview, String posterPath, String title, String voteAverage) {
+    public FirebaseMovieDataModel(String backdropPath, String overview, String posterPath, String title, String voteAverage) {
         this.backdropPath = backdropPath;
         this.overview = overview;
         this.posterPath = posterPath;

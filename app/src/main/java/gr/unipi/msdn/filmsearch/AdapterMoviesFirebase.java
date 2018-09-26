@@ -15,16 +15,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-class AdapterJsonMovies extends ArrayAdapter<MoviesDataModel> {
+class AdapterMoviesFirebase extends ArrayAdapter<FirebaseMovieDataModel> {
 
 
     ImageView movieImage;
 
-    ArrayList<MoviesDataModel> movies;
+    ArrayList<FirebaseMovieDataModel> movies;
     Context context;
     int resource;
 
-    public AdapterJsonMovies(Context context, int resource, ArrayList<MoviesDataModel> movies) {
+    public AdapterMoviesFirebase(Context context, int resource, ArrayList<FirebaseMovieDataModel> movies) {
         super(context, resource, movies);
         this.movies = movies;
         this.context = context;
@@ -40,12 +40,12 @@ class AdapterJsonMovies extends ArrayAdapter<MoviesDataModel> {
             convertView = layoutInflater.inflate(R.layout.list_movie_layout, null, true);
 
         }
-        MoviesDataModel news = getItem(position);
+        FirebaseMovieDataModel news = getItem(position);
 
         movieImage = (ImageView) convertView.findViewById(R.id.posterpath);
-        Picasso.with(context).load("http://image.tmdb.org/t/p/w185/" + news.getResults().get(position).getPosterPath()).into(movieImage);
+        Picasso.with(context).load(news.getPosterPath()).into(movieImage);
 
-        ((TextView) convertView.findViewById(R.id.moviestitle)).setText(news.getResults().get(position).getTitle());
+        ((TextView) convertView.findViewById(R.id.moviestitle)).setText(news.getTitle());
 
 
         return convertView;

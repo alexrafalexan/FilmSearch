@@ -3,7 +3,6 @@ package gr.unipi.msdn.filmsearch;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -15,16 +14,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FavActivity extends SideBarMenu {
 
     ListView favListView;
-    ArrayList<MoviesDataModel> favList;
     ProgressBar progressBar;
     String TAG = "FavActivity";
     long numberOfFavoriteMovies;
-    List<FireBaseAdapterMovie> movieList;
+    ArrayList<FirebaseMovieDataModel> movieList;
 
     // Firebase
     private FirebaseDatabase mDatabase;
@@ -74,11 +71,10 @@ public class FavActivity extends SideBarMenu {
     private void getFavoriteMovies(DataSnapshot dataSnapshot) {
         movieList.clear();
         for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
-            FireBaseAdapterMovie fireBaseAdapterMovie = movieSnapshot.getValue(FireBaseAdapterMovie.class);
+            FirebaseMovieDataModel firebaseMovieDataModel = movieSnapshot.getValue(FirebaseMovieDataModel.class);
             Log.i(TAG, movieSnapshot.toString());
-            movieList.add(fireBaseAdapterMovie);
-            Log.e(TAG, "BackDropPath :" + movieSnapshot.getValue());
-            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, movieList);
+            movieList.add(firebaseMovieDataModel);
+            AdapterMoviesFirebase adapter = new AdapterMoviesFirebase(this, android.R.layout.simple_list_item_1, movieList);
             favListView.setAdapter(adapter);
         }
     }
