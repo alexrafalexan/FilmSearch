@@ -18,11 +18,10 @@ import java.util.ArrayList;
 class AdapterJsonMovies extends ArrayAdapter<MoviesDataModel> {
 
 
-    ImageView movieImage;
-
-    ArrayList<MoviesDataModel> movies;
-    Context context;
-    int resource;
+    private ImageView movieImage;
+    private ArrayList<MoviesDataModel> movies;
+    private Context context;
+    private int resource;
 
     public AdapterJsonMovies(Context context, int resource, ArrayList<MoviesDataModel> movies) {
         super(context, resource, movies);

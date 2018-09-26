@@ -21,9 +21,9 @@ import com.google.firebase.auth.FirebaseAuthActionCodeException;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
-    EditText emailText, passwordText1, passwordText2;
-    TextView alreadyRegister;
-    ProgressBar progressBar;
+    private EditText emailText, passwordText1, passwordText2;
+    private TextView alreadyRegister;
+    private ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
     @Override

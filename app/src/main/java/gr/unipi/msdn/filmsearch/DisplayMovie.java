@@ -32,10 +32,10 @@ public class DisplayMovie extends AppCompatActivity {
     private DatabaseReference dbRef;
     private String favActivityCheck;
 
-    String backdropPath, posterPath, title, voteAverage, overview;
-    ImageView mbackdropPath, mposterPath,fav,favend;
-    TextView mtitle, mvoteAverage, moverview;
-    ProgressBar progressBar;
+    private String backdropPath, posterPath, title, voteAverage, overview;
+    private ImageView mbackdropPath, mposterPath,fav,favend;
+    private TextView mtitle, mvoteAverage, moverview;
+    private ProgressBar progressBar;
 
 
     @Override

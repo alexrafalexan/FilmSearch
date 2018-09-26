@@ -31,13 +31,13 @@ import java.io.IOException;
 public class ProfilActivity extends SideBarMenu  implements View.OnClickListener{
 
     private static final int CHOOSE_IMAGE = 101;
-    ImageView photoImage;
-    ImageView saveButton;
-    EditText editText;
-    Uri uriProfilImage;
-    ProgressBar progressBar;
-    String profileImageUrl;
-    FirebaseAuth mAuth;
+    private ImageView photoImage;
+    private ImageView saveButton;
+    private EditText editText;
+    private Uri uriProfilImage;
+    private ProgressBar progressBar;
+    private String profileImageUrl;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

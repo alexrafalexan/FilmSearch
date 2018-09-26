@@ -21,11 +21,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView imageLogin;
-    TextView register;
-    EditText emailText, passwordText;
-    FirebaseAuth mAuth;
-    ProgressBar progressBar;
+    private ImageView imageLogin;
+    private TextView register;
+    private EditText emailText, passwordText;
+    private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

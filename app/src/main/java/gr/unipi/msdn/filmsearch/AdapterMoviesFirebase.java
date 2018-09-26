@@ -18,11 +18,11 @@ import java.util.ArrayList;
 class AdapterMoviesFirebase extends ArrayAdapter<FirebaseMovieDataModel> {
 
 
-    ImageView movieImage;
+    private ImageView movieImage;
 
-    ArrayList<FirebaseMovieDataModel> movies;
-    Context context;
-    int resource;
+    private ArrayList<FirebaseMovieDataModel> movies;
+    private Context context;
+    private int resource;
 
     public AdapterMoviesFirebase(Context context, int resource, ArrayList<FirebaseMovieDataModel> movies) {
         super(context, resource, movies);

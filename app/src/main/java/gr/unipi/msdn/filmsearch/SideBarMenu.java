@@ -23,8 +23,8 @@ public class SideBarMenu extends AppCompatActivity implements NavigationView.OnN
     public DrawerLayout mDrawerLayout;
     public ActionBarDrawerToggle mToggle;
     public NavigationView mNavigationView;
-    ImageView imagePic;
-    TextView textView;
+    private ImageView imagePic;
+    private TextView textView;
 
 //    public TextView textview = headerview.findViewById(R.id.profilname);
 
