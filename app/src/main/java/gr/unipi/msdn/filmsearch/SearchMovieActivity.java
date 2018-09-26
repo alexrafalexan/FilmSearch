@@ -25,12 +25,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchMovieActivity extends SideBarMenu {
 
-    ListView listView;
-    ArrayList<MoviesDataModel> searchList;
-    ProgressBar progressBar;
+    private ListView listView;
+    private ArrayList<MoviesDataModel> searchList;
+    private ProgressBar progressBar;
+    private String favActivityCheck;
 
     // Firebase
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -130,6 +131,7 @@ public class SearchMovieActivity extends SideBarMenu {
                                 String adult = searchList.get(position).getResults().get(position).getAdult().toString();
                                 String overview = searchList.get(position).getResults().get(position).getOverview().toString();
                                 String releaseDate = searchList.get(position).getResults().get(position).getReleaseDate().toString();
+                                favActivityCheck = "MainActivity";
 
                                 Bundle bundle = new Bundle();
                                 bundle.putString("VOTE_COUNT", voteCount);
@@ -145,6 +147,7 @@ public class SearchMovieActivity extends SideBarMenu {
                                 bundle.putString("ADULT", adult);
                                 bundle.putString("OVERVIEW", overview);
                                 bundle.putString("RELEASEDATE", releaseDate);
+                                bundle.putString("FAVACTIVITY", favActivityCheck);
                                 Intent displayMovie = new Intent(SearchMovieActivity.this, DisplayMovie.class);
                                 displayMovie.putExtras(bundle);
                                 startActivity(displayMovie);

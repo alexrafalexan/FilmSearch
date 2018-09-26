@@ -3,6 +3,8 @@ package gr.unipi.msdn.filmsearch;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -22,6 +24,7 @@ public class FavActivity extends SideBarMenu {
     private String TAG = "FavActivity";
     private long numberOfFavoriteMovies;
     private ArrayList<FirebaseMovieDataModel> movieList;
+    private String favActivityCheck;
 
     // Firebase
     private FirebaseDatabase mDatabase;
@@ -56,6 +59,31 @@ public class FavActivity extends SideBarMenu {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+        favListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String backdropPath = movieList.get(position).getBackdropPath();
+                String posterPath = movieList.get(position).getPosterPath();
+                String title = movieList.get(position).getTitle();
+                String voteAverage = movieList.get(position).getVoteAverage();
+                String overview = movieList.get(position).getOverview();
+                favActivityCheck = "FavActivity";
+
+
+                Bundle bundle = new Bundle();
+                bundle.putString("BACKDROPPATH", backdropPath);
+                bundle.putString("POSTERPATH", posterPath);
+                bundle.putString("TITLE", title);
+                bundle.putString("VOTEAVERAGE", voteAverage);
+                bundle.putString("OVERVIEW", overview);
+                bundle.putString("FAVACTIVITY", favActivityCheck);
+                Intent displayMovie = new Intent(FavActivity.this, DisplayMovie.class);
+                displayMovie.putExtras(bundle);
+                startActivity(displayMovie);
+            }
+        });
     }
 
     @Override
@@ -68,7 +96,7 @@ public class FavActivity extends SideBarMenu {
         }
     }
 
-    private void getFavoriteMovies(DataSnapshot dataSnapshot) {
+    private ArrayList<FirebaseMovieDataModel> getFavoriteMovies(DataSnapshot dataSnapshot) {
         movieList.clear();
         for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
             FirebaseMovieDataModel firebaseMovieDataModel = movieSnapshot.getValue(FirebaseMovieDataModel.class);
@@ -77,6 +105,7 @@ public class FavActivity extends SideBarMenu {
             AdapterMoviesFirebase adapter = new AdapterMoviesFirebase(this, R.layout.list_movie_layout, movieList);
             favListView.setAdapter(adapter);
         }
+        return movieList;
     }
 }
 

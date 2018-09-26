@@ -26,11 +26,11 @@ import java.util.Map;
 
 public class DisplayMovie extends AppCompatActivity {
 
-    String TAG = "INFO";
-    Context context;
-    FirebaseAuth mAuth;
-    DatabaseReference dbRef;
-
+    private String TAG = "DisplayMovie";
+    private Context context;
+    private FirebaseAuth mAuth;
+    private DatabaseReference dbRef;
+    private String favActivityCheck;
 
     String backdropPath, posterPath, title, voteAverage, overview;
     ImageView mbackdropPath, mposterPath,fav,favend;
@@ -46,12 +46,23 @@ public class DisplayMovie extends AppCompatActivity {
         // Content Layout
         progressBar =findViewById(R.id.progressdisplaymovie);
 
+        favActivityCheck = getValueBundle().get(5).toString();
+
+
+        if(favActivityCheck.contains("FavActivity")){
+            backdropPath = getValueBundle().get(0).toString();
+            posterPath = getValueBundle().get(1).toString();
+        }else{
+            backdropPath = "http://image.tmdb.org/t/p/w185/" +getValueBundle().get(0).toString();
+            posterPath = "http://image.tmdb.org/t/p/w185/" +getValueBundle().get(1).toString();
+        }
+
         mbackdropPath = findViewById(R.id.backdroppath);
-        backdropPath = "http://image.tmdb.org/t/p/w185/" +getValueBundle().get(0).toString();
         Picasso.with(context).load(backdropPath).into(mbackdropPath);
+
         mposterPath = findViewById(R.id.posterpath);
-        posterPath = "http://image.tmdb.org/t/p/w185/" +getValueBundle().get(1).toString();
         Picasso.with(context).load(posterPath).into(mposterPath);
+
         mtitle = findViewById(R.id.title);
         title = getValueBundle().get(2).toString();
         mtitle.setText(title);
@@ -62,14 +73,6 @@ public class DisplayMovie extends AppCompatActivity {
         overview = getValueBundle().get(4).toString();
         moverview.setText(overview);
         moverview.setMovementMethod(new ScrollingMovementMethod());
-
-
-        // Display INFO at Logcat //
-        Log.i(TAG, "INFO " + backdropPath);
-        Log.i(TAG, "INFO " + posterPath);
-        Log.i(TAG, "INFO " + title);
-        Log.i(TAG, "INFO " + voteAverage);
-        Log.i(TAG, "INFO " + overview);
 
         // Connection Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -119,11 +122,14 @@ public class DisplayMovie extends AppCompatActivity {
         String title = this.getIntent().getExtras().getString("TITLE");
         String voteAverage = this.getIntent().getExtras().getString("VOTEAVERAGE");
         String overview = this.getIntent().getExtras().getString("OVERVIEW");
+        String favActivityCheck = this.getIntent().getExtras().getString("FAVACTIVITY");
         list.add(backdropPath);
         list.add(posterPath);
         list.add(title);
         list.add(voteAverage);
         list.add(overview);
+        list.add(favActivityCheck);
+        Log.e(TAG, favActivityCheck );
         return list;
     }
 
@@ -136,7 +142,6 @@ public class DisplayMovie extends AppCompatActivity {
 
                 // Disable Stared if Article is Favorite //
                 String favTitleRec = dataretrieval.getTitle().toString();
-                Log.d("favTitleRec", dataretrieval.getTitle().toString());
                 progressBar.setVisibility(View.VISIBLE);
                 if (favTitleRec.contains(title)) {
                     fav.setVisibility(View.GONE);
@@ -172,11 +177,6 @@ public class DisplayMovie extends AppCompatActivity {
 
     public void addFavoriteMovie(String backdropPath,String posterPath,String title,String voteAverage,String overview) {
         Map<String, Object> taskMap = new HashMap<>();
-        Log.i("addFavoriteMovie", "INFO " + backdropPath);
-        Log.i("addFavoriteMovie", "INFO " + posterPath);
-        Log.i("addFavoriteMovie", "INFO " + title);
-        Log.i("addFavoriteMovie", "INFO " + voteAverage);
-        Log.i("addFavoriteMovie", "INFO " + overview);
         taskMap.put("backdropPath", backdropPath);
         taskMap.put("posterPath", posterPath);
         taskMap.put("title", title);
