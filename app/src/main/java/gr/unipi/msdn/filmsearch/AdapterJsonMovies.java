@@ -39,12 +39,12 @@ class AdapterJsonMovies extends ArrayAdapter<MoviesDataModel> {
             convertView = layoutInflater.inflate(R.layout.list_movie_layout, null, true);
 
         }
-        MoviesDataModel news = getItem(position);
+        MoviesDataModel movies = getItem(position);
 
         movieImage = (ImageView) convertView.findViewById(R.id.posterpath);
-        Picasso.with(context).load("http://image.tmdb.org/t/p/w185/" + news.getResults().get(position).getPosterPath()).into(movieImage);
+        Picasso.with(context).load("http://image.tmdb.org/t/p/w185/" + movies.getResults().get(position).getPosterPath()).into(movieImage);
 
-        ((TextView) convertView.findViewById(R.id.moviestitle)).setText(news.getResults().get(position).getTitle());
+        ((TextView) convertView.findViewById(R.id.moviestitle)).setText(movies.getResults().get(position).getTitle());
 
 
         return convertView;
