@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 class AdapterMoviesFirebase extends ArrayAdapter<FirebaseMovieDataModel> {
 
-
     private ImageView movieImage;
 
     private ArrayList<FirebaseMovieDataModel> movies;
